@@ -34,8 +34,16 @@
   }
   function isVisible(el) {
     if (!el || el.hidden) return false;
-    const style = window.getComputedStyle ? getComputedStyle(el) : null;
-    return !style || (style.display !== "none" && style.visibility !== "hidden" && style.opacity !== "0");
+    if (typeof el.getClientRects === "function" && el.getClientRects().length === 0) return false;
+    if (window.getComputedStyle) {
+      let node = el;
+      while (node && node.nodeType === 1) {
+        const style = getComputedStyle(node);
+        if (style.display === "none" || style.visibility === "hidden" || style.opacity === "0") return false;
+        node = node.parentElement;
+      }
+    }
+    return true;
   }
   function makeToken() {
     const bytes = new Uint8Array(32);
