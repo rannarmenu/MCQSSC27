@@ -249,6 +249,7 @@
     const titleSelectors = ["[data-quiz-title]", "#quizTitle", ".quiz-title", ".quiz-header h1", ".quiz-header h2", ".quiz-heading h1", ".quiz-heading h2"];
     for (const selector of titleSelectors) {
       const el = document.querySelector(selector);
+      if (!isVisible(el)) continue;
       const value = safeText(el && (el.innerText || el.textContent), 180);
       if (value && !/^(?:mcq|ssc\s*2027|প্রশ্ন|অনুশীলন)$/i.test(value)) return value;
     }
@@ -263,6 +264,7 @@
   function getSubject() {
     const liveSubject = safeText(document.querySelector("#quizSubjectName")?.textContent || "", 120);
     if (liveSubject && isVisible(document.querySelector("#quizSubjectName"))) return liveSubject;
+    if (session && session.currentSubject) return safeText(session.currentSubject, 120);
     const attr = document.querySelector("[data-subject]");
     if (attr && attr.getAttribute("data-subject")) return safeText(attr.getAttribute("data-subject"), 120);
     const chip = document.querySelector(".syllabus-chip,.subject-chip,.active-subject");
