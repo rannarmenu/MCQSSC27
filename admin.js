@@ -139,12 +139,14 @@
   }
   function renderStats() {
     const online = state.sessions.filter(isOnline).length;
+    const inQuiz = state.sessions.filter(isInQuiz).length;
     const answered = state.sessions.reduce((sum, item) => sum + (Number(item.answered_count) || 0), 0);
     const correct = state.sessions.reduce((sum, item) => sum + (Number(item.correct_count) || 0), 0);
+    const wrong = state.sessions.reduce((sum, item) => sum + (Number(item.wrong_count) || 0), 0);
     $("onlineCount").textContent = online.toLocaleString("bn-BD");
-    $("totalCount").textContent = state.sessions.length.toLocaleString("bn-BD");
+    $("activeQuizCount").textContent = inQuiz.toLocaleString("bn-BD");
     $("answeredCount").textContent = answered.toLocaleString("bn-BD");
-    $("accuracyCount").textContent = correct.toLocaleString("bn-BD");
+    $("accuracyCount").textContent = correct.toLocaleString("bn-BD") + " / " + wrong.toLocaleString("bn-BD");
   }
   function statusBadge(session) {
     if (isInQuiz(session)) return '<span class="status quiz">কুইজ করছে</span>';
