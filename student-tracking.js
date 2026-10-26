@@ -201,15 +201,18 @@
     addAdminLink();
   }
   function questionCards() {
-    const nodes = Array.from(document.querySelectorAll(".question-card,.question-item,[data-question-index],.quiz-question,.mcq-question,.question-block"));
+    const nodes = Array.from(document.querySelectorAll("#questionText,.qcard,.question-card,.question-item,[data-question-index],.quiz-question,.mcq-question,.question-block"));
     return nodes.filter(el => isVisible(el) && safeText(el.innerText || el.textContent, 1800).length > 10);
   }
   function findQuestionCard(from) {
     if (!from || !from.closest) return null;
-    return from.closest(".question-card,.question-item,[data-question-index],.quiz-question,.mcq-question,.question-block,article");
+    return from.closest(".qcard,.question-card,.question-item,[data-question-index],.quiz-question,.mcq-question,.question-block,article");
   }
   function questionLabel(card) {
     if (!card) return "";
+    if (card.id === "questionText") return safeText(card.innerText || card.textContent, 1800);
+    const liveQuestion = card.querySelector && card.querySelector("#questionText");
+    if (liveQuestion) return safeText(liveQuestion.innerText || liveQuestion.textContent, 1800);
     const el = card.querySelector("[data-question-text],.question-text,.question-title,.question-statement,h2,h3,h4");
     const candidate = safeText(el ? (el.innerText || el.textContent) : "", 1800);
     if (candidate) return candidate;
@@ -217,6 +220,9 @@
     return text.slice(0, 900);
   }
   function questionNumber(card, clickedCard) {
+    const quizCount = safeText(document.querySelector("#quizCount")?.textContent || "", 80);
+    const quizMatch = quizCount.match(/(\d+)\s*\/\s*(\d+)/);
+    if (quizMatch) return Number(quizMatch[1]);
     const el = card || clickedCard;
     if (el) {
       for (const key of ["questionIndex", "questionNumber", "index"]) {
@@ -238,6 +244,8 @@
     return cards.length ? 1 : null;
   }
   function getQuizTitle(fallback) {
+    const liveTitle = safeText(document.querySelector("#quizSubjectName")?.textContent || "", 180);
+    if (liveTitle && isVisible(document.querySelector("#quizSubjectName"))) return liveTitle;
     const titleSelectors = ["[data-quiz-title]", "#quizTitle", ".quiz-title", ".quiz-header h1", ".quiz-header h2", ".quiz-heading h1", ".quiz-heading h2"];
     for (const selector of titleSelectors) {
       const el = document.querySelector(selector);
@@ -253,12 +261,20 @@
     return safeText(fallback || session?.currentQuiz || "SSC 2027 · MCQ অনুশীলন", 180);
   }
   function getSubject() {
+    const liveSubject = safeText(document.querySelector("#quizSubjectName")?.textContent || "", 120);
+    if (liveSubject && isVisible(document.querySelector("#quizSubjectName"))) return liveSubject;
     const attr = document.querySelector("[data-subject]");
     if (attr && attr.getAttribute("data-subject")) return safeText(attr.getAttribute("data-subject"), 120);
     const chip = document.querySelector(".syllabus-chip,.subject-chip,.active-subject");
     return safeText(chip && (chip.innerText || chip.textContent), 120);
   }
   function getTotalQuestions() {
+    const liveCount = safeText(document.querySelector("#quizCount")?.textContent || "", 80);
+    const liveMatch = liveCount.match(/(\d+)\s*\/\s*(\d+)/);
+    if (liveMatch) return Math.min(2000, Number(liveMatch[2]));
+    const subjectCount = safeText(document.querySelector("#quizSubjectEn")?.textContent || "", 100);
+    const subjectMatch = subjectCount.match(/(\d+)\s*MCQ/i);
+    if (subjectMatch) return Math.min(2000, Number(subjectMatch[1]));
     const progressEls = document.querySelectorAll(".question-progress,.progress-text,.question-counter,[data-total-questions]");
     for (const el of progressEls) {
       const attr = el.getAttribute("data-total-questions");
@@ -337,12 +353,15 @@
   }
   function recordAnswer(option) {
     if (!session || !option) return;
-    const card = findQuestionCard(option) || option.parentElement;
+    const card = document.querySelector(".qcard") || findQuestionCard(option) || option.parentElement;
     const title = getQuizTitle(session.currentQuiz);
     const n = questionNumber(card, card);
-    const qText = questionLabel(card);
+    const livePrompt = document.querySelector("#questionText");
+    const qText = safeText(livePrompt ? (livePrompt.innerText || livePrompt.textContent) : questionLabel(card), 1800);
     const answer = safeText(option.innerText || option.textContent || option.getAttribute("aria-label") || "", 500);
-    const correct = determineCorrectness(option, card);
+    const liveOptions = Array.from(document.querySelectorAll("#options button.option,.options button.option,button.option"));
+    const selectedNow = liveOptions.find(btn => safeText(btn.innerText || btn.textContent, 500) === answer && (btn.classList.contains("correct") || btn.classList.contains("wrong"))) || liveOptions.find(btn => safeText(btn.innerText || btn.textContent, 500) === answer);
+    const correct = determineCorrectness(selectedNow || option, document.querySelector("#feedback") || card);
     const key = title + "|" + (n == null ? "unknown-" + qText.slice(0, 70) : String(n)) + "|" + qText.slice(0, 70);
     if (!session.answers) session.answers = {};
     session.answers[key] = { quiz: title, number: n, question: qText, answer, correct, at: new Date().toISOString() };
@@ -354,12 +373,13 @@
     });
   }
   function hasQuizOptions() {
-    return Array.from(document.querySelectorAll(".option-btn,.answer-option,[data-option],.quiz-option,button.option,input[type='radio']")).some(isVisible);
+    return Array.from(document.querySelectorAll("#options button.option,.options button.option,.option-btn,.answer-option,[data-option],.quiz-option,button.option,input[type='radio']")).some(isVisible);
   }
   function currentQuestionInfo() {
     const cards = questionCards();
-    const card = cards[0] || document.querySelector(".question-card,.quiz-question,.mcq-question");
-    return { number: questionNumber(card, card), text: questionLabel(card), card, total: getTotalQuestions() };
+    const livePrompt = document.querySelector("#questionText");
+    const card = document.querySelector(".qcard") || livePrompt || cards[0] || document.querySelector(".question-card,.quiz-question,.mcq-question");
+    return { number: questionNumber(card, card), text: livePrompt ? safeText(livePrompt.innerText || livePrompt.textContent, 1800) : questionLabel(card), card, total: getTotalQuestions() };
   }
   function scanQuizState() {
     if (!session) return;
@@ -408,9 +428,9 @@
         : null;
       if (!target) return;
       const label = safeText(target.innerText || target.textContent || target.getAttribute("aria-label"), 180);
-      const option = target.matches(".option-btn,.answer-option,[data-option],.quiz-option,button.option")
+      const option = target.matches("#options button.option,.options button.option,.option-btn,.answer-option,[data-option],.quiz-option,button.option")
         ? target
-        : (target.closest(".option-btn,.answer-option,[data-option],.quiz-option,button.option"));
+        : (target.closest("#options button.option,.options button.option,.option-btn,.answer-option,[data-option],.quiz-option,button.option"));
       if (option) {
         window.setTimeout(() => {
           recordAnswer(option);
@@ -420,7 +440,7 @@
       }
       const startLabel = /(শুরু করুন|শুরু করো|কুইজ শুরু|অনুশীলন শুরু|start quiz|start practice|begin quiz)/i.test(label);
       const nextLabel = /(পরবর্তী|পরের প্রশ্ন|next question|next)/i.test(label);
-      const finishLabel = /(কুইজ শেষ|পরীক্ষা শেষ|ফলাফল দেখুন|জমা দিন|submit quiz|finish quiz|end quiz)/i.test(label);
+      const finishLabel = /(কুইজ শেষ|পরীক্ষা শেষ|ফলাফল দেখুন|ফলাফল দেখো|জমা দিন|submit quiz|finish quiz|end quiz)/i.test(label);
       const categoryClick = target.matches(".filter-btn,.category-btn,.category-card,.subject-card,.chapter-card,[data-category],[data-subject]") &&
         label && !/সব অধ্যায়|সব বিষয়|all categories|home|save|bookmarks/i.test(label);
       if (categoryClick) {
