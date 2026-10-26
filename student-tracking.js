@@ -292,7 +292,9 @@
     return cards.length > 1 ? Math.min(2000, cards.length) : (session?.totalQuestions || 0);
   }
   function counts() {
-    const answers = session && session.answers ? Object.values(session.answers) : [];
+    const allAnswers = session && session.answers ? Object.values(session.answers) : [];
+    const currentQuiz = safeText(session && session.currentQuiz || "", 180);
+    const answers = currentQuiz ? allAnswers.filter(a => a && safeText(a.quiz || "", 180) === currentQuiz) : allAnswers;
     return {
       answered: answers.length,
       correct: answers.filter(a => a && a.correct === true).length,
@@ -452,7 +454,7 @@
       }
       if (startLabel || nextLabel || finishLabel) {
         window.setTimeout(() => {
-          if (finishLabel) trackEvent("quiz_completed", { quizTitle: getQuizTitle(), subject: getSubject(), status: "active", totalQuestions: getTotalQuestions() });
+          // The result-screen observer records completion once the real UI changes.
           scheduleScan(30);
         }, 300);
       }
