@@ -401,6 +401,10 @@
     if (active && !quizScreenActive) {
       quizScreenActive = true;
       session.status = "active";
+      // Start a fresh progress counter for this attempt; the database event timeline retains history.
+      session.answers = {};
+      lastQuestionKey = "";
+      saveSession();
       const title = getQuizTitle(session.currentQuiz);
       trackEvent("quiz_started", { quizTitle: title, subject: getSubject(), status: "active", totalQuestions: getTotalQuestions() });
     } else if (!active && quizScreenActive) {
