@@ -249,12 +249,12 @@ end;
 $$;
 
 revoke all on function public.ssc27_start_session(text, text, text) from public, anon, authenticated;
-grant execute on function public.ssc27_start_session(text, text, text) to anon, authenticated;
+grant execute on function public.ssc27_start_session(text, text, text) to anon;
 
 revoke all on function public.ssc27_track_event(uuid, text, text, text, text, integer, text, text, boolean, integer, integer, integer, integer, text)
   from public, anon, authenticated;
 grant execute on function public.ssc27_track_event(uuid, text, text, text, text, integer, text, text, boolean, integer, integer, integer, integer, text)
-  to anon, authenticated;
+  to anon;
 
 -- Enable Postgres Changes for live admin updates if the project's standard publication exists.
 do $$
