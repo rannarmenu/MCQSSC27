@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173d35">
+  <meta name="description" content="SSC 2027 MCQ অনুশীলনের অনুমোদিত অ্যাডমিন লাইভ মনিটর।">
+  <title>Admin Panel · SSC 2027 MCQ</title>
+  <style>
+    :root{color-scheme:light;--forest:#173d35;--forest2:#245f4a;--mint:#e9f5ec;--ink:#1f3028;--muted:#708078;--line:#e2e9e2;--paper:#fffefa;--bg:#f4f7f3;--gold:#f0d48c;--red:#b9483d;--shadow:0 18px 55px rgba(24,61,48,.075}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(ellipse at 0 0,#e6f1e8 0,transparent 34rem),var(--bg);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;color:var(--ink)}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    .auth-shell{min-height:100vh;display:grid;place-items:center;padding:20px}
+    .auth-card{width:min(100%,430px);background:var(--paper);border:1px solid var(--line);border-radius:25px;box-shadow:var(--shadow);padding:clamp(22px,5vw,36px)}
+    .brand-mark{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:var(--forest);color:#fff1c9;font-size:25px;box-shadow:0 10px 22px #173d3525}
+    .eyebrow{font-size:11px;font-weight:850;letter-spacing:.13em;color:#468062;text-transform:uppercase;margin:18px 0 8px}
+    h1,h2,h3,p{margin-top:0}
+    h1{color:var(--forest);font-size:clamp(25px,5vw,34px);letter-spacing:-.8px;line-height:1.18;margin-bottom:10px}
+    .auth-copy{color:var(--muted);line-height:1.75;font-size:13px;margin-bottom:22px}
+    .field-label{display:block;font-size:12px;font-weight:800;color:#355445;margin:14px 0 7px}
+    .input{width:100%;min-height:46px;border:1px solid #d8e4da;border-radius:12px;background:#fff;padding:11px 13px;color:var(--ink);outline:none}
+    .input:focus{border-color:#58a077;box-shadow:0 0 0 4px #58a07722}
+    .primary{border:0;border-radius:12px;background:linear-gradient(135deg,#194b3b,#287451);color:white;font-weight:800;min-height:47px;padding:11px 16px;box-shadow:0 8px 18px #194b3b1c}
+    .primary:disabled{opacity:.62;cursor:wait}
+    .auth-card .primary{width:100%;margin-top:20px}
+    .message{min-height:22px;margin:12px 0 0;color:var(--red);font-size:12px;line-height:1.65}
+    .privacy-note{font-size:11px;line-height:1.65;color:#849087;margin:18px 0 0;border-top:1px solid var(--line);padding-top:14px}
+    [hidden]{display:none!important}
+    .topbar{height:76px;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+    .topbar-inner{width:min(1440px,100%);height:100%;margin:auto;padding:0 28px;display:flex;align-items:center;gap:14px}
+    .topbar .brand-mark{width:42px;height:42px;border-radius:13px;font-size:20px}
+    .brand-copy{min-width:0}
+    .brand-copy strong{display:block;color:var(--forest);font-size:15px;line-height:1.25}
+    .brand-copy span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+    .spacer{flex:1}
+    .live-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #d1e7d7;border-radius:999px;padding:8px 12px;color:#28724b;background:#f0faf2;font-size:11px;font-weight:800;white-space:nowrap}
+    .live-dot{width:7px;height:7px;border-radius:50%;background:#36a565;box-shadow:0 0 0 4px #36a56518}
+    .live-pill[data-state="warning"]{color:#855f1c;border-color:#ead8ac;background:#fff9e8}
+    .live-pill[data-state="warning"] .live-dot{background:#c69230;box-shadow:0 0 0 4px #c6923018}
+    .live-pill[data-state="error"]{color:#a33b34;border-color:#efcbc6;background:#fff2ef}
+    .live-pill[data-state="error"] .live-dot{background:#c65042;box-shadow:0 0 0 4px #c6504218}
+    .ghost{min-height:39px;border:1px solid #dce6de;background:#fff;border-radius:11px;padding:8px 12px;color:#4b6255;font-size:12px;font-weight:800}
+    .page{width:min(1440px,100%);margin:0 auto;padding:26px 28px 46px}
+    .page-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:22px}
+    .page-heading h1{font-size:clamp(24px,4vw,32px);margin-bottom:7px}
+    .page-heading p{color:var(--muted);font-size:13px;line-height:1.7;margin:0;max-width:680px}
+    .refresh-label{font-size:11px;color:var(--muted);white-space:nowrap}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+    .stat{background:rgba(255,254,250,.95);border:1px solid var(--line);border-radius:18px;padding:19px;display:flex;align-items:center;gap:13px;box-shadow:0 8px 24px rgba(31,65,44,.03)}
+    .stat-icon{flex:0 0 auto;width:39px;height:39px;border-radius:12px;display:grid;place-items:center;background:#eaf5ed;color:#34754c;font-weight:900;font-size:18px}
+    .stat-icon.gold{background:#fbf2dc;color:#98752c}.stat-icon.blue{background:#eaf1fa;color:#5477a6}.stat-icon.rose{background:#fbece8;color:#af5c49}
+    .stat strong{display:block;color:var(--forest);font-size:25px;line-height:1.1;font-variant-numeric:tabular-nums}
+    .stat span{display:block;color:var(--muted);font-size:11px;margin-top:6px}
+    .workspace{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(340px,.9fr);gap:18px;align-items:start}
+    .panel{background:rgba(255,254,250,.97);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 34px rgba(28,59,43,.04);overflow:hidden;min-width:0}
+    .panel-head{padding:20px 21px 15px;border-bottom:1px solid #edf1ed;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .panel-head h2{font-size:16px;color:var(--forest);margin:0 0 5px}
+    .panel-head p{font-size:11px;color:var(--muted);line-height:1.6;margin:0}
+    .toolbar{display:flex;gap:9px;padding:14px 17px;border-bottom:1px solid #edf1ed;flex-wrap:wrap}
+    .toolbar .input{min-height:40px;font-size:12px;padding:9px 11px}
+    .search-input{flex:1 1 185px;min-width:130px}
+    .filter-select{flex:0 1 150px}
+    .table-wrap{width:100%;overflow:auto}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    th{background:#f8faf7;color:#78877e;text-align:left;font-size:10px;font-weight:850;letter-spacing:.04em;padding:12px 13px;white-space:nowrap}
+    td{border-top:1px solid #edf1ed;padding:13px;vertical-align:middle}
+    tbody tr{cursor:pointer;transition:background .14s}
+    tbody tr:hover{background:#f6faf6}
+    tbody tr.selected{background:#ecf6ed}
+    .student-name{font-weight:850;color:#244a37;font-size:12px}
+    .student-city{font-size:10px;color:#829087;margin-top:4px}
+    .status{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 8px;font-weight:800;font-size:10px;white-space:nowrap;background:#eef7ef;color:#31734a}
+    .status:before{content:"";width:6px;height:6px;background:#41a366;border-radius:50%}
+    .status.offline{background:#f1f3f1;color:#758178}.status.offline:before{background:#a9b2aa}
+    .status.quiz{background:#eaf1fb;color:#3d6493}.status.quiz:before{background:#5c83b6}
+    .num{font-variant-numeric:tabular-nums;font-weight:800;color:#324c3b;white-space:nowrap}
+    .num small{font-size:10px;font-weight:600;color:#859188}
+    .empty{padding:32px 18px;text-align:center;color:#879289;font-size:12px;line-height:1.8}
+    .detail-empty{padding:34px 23px;text-align:center}
+    .detail-empty .empty-icon{display:grid;place-items:center;margin:0 auto 13px;width:46px;height:46px;border-radius:15px;background:#edf5ee;color:#398055;font-size:22px}
+    .detail-empty strong{display:block;color:#30513e;font-size:14px;margin-bottom:6px}
+    .detail-empty p{color:#809087;font-size:11px;line-height:1.75;margin:0}
+    .detail-body{padding:20px 21px}
+    .student-title-row{display:flex;justify-content:space-between;gap:12px;align-items:start}
+    .student-title-row h2{font-size:20px;letter-spacing:-.4px;color:var(--forest);margin:0 0 5px;overflow-wrap:anywhere}
+    .student-title-row p{color:var(--muted);font-size:12px;margin:0;line-height:1.65}
+    .mini-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}
+    .mini-stat{background:#f5f8f4;border:1px solid #e7eee7;border-radius:13px;padding:12px}
+    .mini-stat strong{font-size:18px;color:#244d38;display:block;line-height:1.15;font-variant-numeric:tabular-nums}
+    .mini-stat span{display:block;color:#819086;font-size:10px;margin-top:5px}
+    .current-box{border:1px solid #dceadd;border-radius:15px;background:linear-gradient(135deg,#f0f8f0,#fbfdf9);padding:14px}
+    .current-box .label{color:#7b8b80;letter-spacing:.08em;font-size:9px;font-weight:900}
+    .current-box strong{display:block;font-size:13px;line-height:1.6;color:#284d39;margin-top:6px;overflow-wrap:anywhere}
+    .current-box p{font-size:11px;line-height:1.7;color:#697c6f;margin:5px 0 0;overflow-wrap:anywhere}
+    .events-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 13px}
+    .events-head h3{font-size:13px;color:var(--forest);margin:0}
+    .events-head span{font-size:10px;color:#829087}
+    .event-list{display:grid;gap:10px}
+    .event{border:1px solid #e6ece6;border-radius:14px;padding:13px 13px 12px;background:white;min-width:0}
+    .event-top{display:flex;justify-content:space-between;align-items:start;gap:8px}
+    .event-title{font-size:11px;font-weight:850;color:#2b513d;line-height:1.55}
+    .event-time{font-size:9px;color:#98a198;white-space:nowrap}
+    .event-question{font-size:11px;line-height:1.75;color:#4f6356;margin:9px 0 6px;overflow-wrap:anywhere}
+    .answer-line{font-size:11px;line-height:1.65;color:#637267;background:#f7f9f6;border-radius:9px;padding:8px 10px;overflow-wrap:anywhere}
+    .answer-line b{color:#354c3c}
+    .result-tag{display:inline-block;margin-top:8px;padding:4px 7px;border-radius:7px;font-size:9px;font-weight:900}
+    .result-tag.correct{background:#e8f6eb;color:#247345}.result-tag.wrong{background:#fcebe7;color:#a84035}.result-tag.unknown{background:#eff2ef;color:#68776d}
+    .footer-note{margin:18px 3px 0;color:#8a958c;font-size:10px;line-height:1.7}
+    @media(max-width:1100px){.workspace{grid-template-columns:1fr}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.detail-body{padding:18px}.page{padding:22px 20px 40px}}
+    @media(max-width:720px){.topbar{height:auto;min-height:68px}.topbar-inner{padding:12px 14px;gap:10px;flex-wrap:wrap}.topbar .brand-mark{width:38px;height:38px}.brand-copy strong{font-size:13px}.brand-copy span{font-size:10px}.live-pill{margin-left:auto;padding:7px 9px;font-size:10px}.topbar .ghost{min-height:34px;padding:6px 9px;font-size:11px}.page{padding:18px 12px 34px}.page-heading{display:block;margin-bottom:17px}.page-heading h1{font-size:25px}.refresh-label{display:block;margin-top:9px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat{padding:13px 12px;border-radius:15px;gap:10px}.stat-icon{width:34px;height:34px;border-radius:10px;font-size:16px}.stat strong{font-size:22px}.stat span{font-size:10px}.panel{border-radius:17px}.panel-head{padding:17px 15px 13px}.toolbar{padding:12px;gap:7px}.search-input{flex-basis:100%}.filter-select{flex:1}.table-wrap{overflow:visible}table,tbody,tr,td{display:block;width:100%}thead{display:none}tbody{padding:9px;display:grid;gap:9px}tbody tr{border:1px solid #e5ece5;border-radius:14px;padding:4px 11px;background:#fff;box-shadow:0 3px 12px rgba(30,60,40,.02)}tbody tr.selected{border-color:#a9cfb2;background:#f0f8f0}tbody td{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:9px 2px;border-top:1px dashed #e8eee8;font-size:11px;text-align:right;overflow-wrap:anywhere}tbody td:first-child{border-top:0;padding-top:10px;text-align:left}tbody td:before{content:attr(data-label);color:#879389;font-size:10px;flex:0 0 auto;text-align:left}tbody td:first-child:before{display:none}.student-name{font-size:12px}.student-cell{flex:1;min-width:0}.status{font-size:9px}.detail-body{padding:16px 13px}.student-title-row h2{font-size:18px}.mini-stats{gap:6px}.mini-stat{padding:10px 8px}.mini-stat strong{font-size:16px}.mini-stat span{font-size:9px}.event{padding:11px}.event-top{display:block}.event-time{display:block;margin-top:3px}.current-box{padding:12px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main id="loginView" class="auth-shell">
+    <section class="auth-card" aria-labelledby="loginTitle">
+      <div class="brand-mark" aria-hidden="true">⌁</div>
+      <div class="eyebrow">Private · Admin Access</div>
+      <h1 id="loginTitle">SSC 2027<br>Live Monitor</h1>
+      <p class="auth-copy">শিক্ষার্থীদের লাইভ MCQ অগ্রগতি, খোলা কুইজ ও জমা দেওয়া উত্তর দেখতে অনুমোদিত অ্যাডমিন হিসেবে সাইন ইন করুন।</p>
+      <form id="loginForm">
+        <label class="field-label" for="adminEmail">অ্যাডমিন ইমেইল</label>
+        <input class="input" id="adminEmail" type="email" autocomplete="username" required placeholder="আপনার ইমেইল">
+        <label class="field-label" for="adminPassword">পাসওয়ার্ড</label>
+        <input class="input" id="adminPassword" type="password" autocomplete="current-password" required placeholder="আপনার পাসওয়ার্ড">
+        <button class="primary" id="loginButton" type="submit">নিরাপদে সাইন ইন করুন</button>
+        <p class="message" id="loginMessage" role="status" aria-live="polite"></p>
+      </form>
+      <p class="privacy-note">এই প্যানেলের তথ্য শুধু অনুমোদিত অ্যাডমিনের জন্য। কোনো পাসওয়ার্ড এই ওয়েবসাইটে সংরক্ষণ করা হয় না; লগইন Supabase Auth দিয়ে যাচাই হয়।</p>
+    </section>
+  </main>
+
+  <div id="dashboardView" hidden>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-mark" aria-hidden="true">⌁</div>
+        <div class="brand-copy"><strong>SSC 2027 · Admin</strong><span>Live MCQ student monitor</span></div>
+        <div class="spacer"></div>
+        <div id="connectionPill" class="live-pill" data-state="warning"><span class="live-dot"></span><span id="connectionText">সংযোগ হচ্ছে…</span></div>
+        <button id="refreshButton" class="ghost" type="button">↻ রিফ্রেশ</button>
+        <button id="logoutButton" class="ghost" type="button">লগ আউট</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="page-heading">
+        <div><div class="eyebrow">Live activity</div><h1>শিক্ষার্থীদের অগ্রগতি</h1><p>কে অনলাইনে আছে, কোন কুইজ খুলেছে, কতটি উত্তর দিয়েছে এবং প্রশ্নভিত্তিক উত্তর—সব এখানে লাইভ আপডেট হবে।</p></div>
+        <span class="refresh-label" id="lastUpdated">ডেটা লোড হচ্ছে…</span>
+      </section>
+
+      <section class="stats" aria-label="সারাংশ">
+        <article class="stat"><div class="stat-icon">●</div><div><strong id="onlineCount">—</strong><span>এখন অনলাইনে</span></div></article>
+        <article class="stat"><div class="stat-icon blue">◫</div><div><strong id="totalCount">—</strong><span>মোট সেশন</span></div></article>
+        <article class="stat"><div class="stat-icon gold">✓</div><div><strong id="answeredCount">—</strong><span>উত্তর দেওয়া হয়েছে</span></div></article>
+        <article class="stat"><div class="stat-icon rose">↗</div><div><strong id="accuracyCount">—</strong><span>সঠিক উত্তর</span></div></article>
+      </section>
+
+      <div class="workspace">
+        <section class="panel" aria-labelledby="studentsHeading">
+          <div class="panel-head">
+            <div><h2 id="studentsHeading">লাইভ শিক্ষার্থী তালিকা</h2><p>যেকোনো শিক্ষার্থীর সারিতে চাপ দিলে তার প্রশ্ন ও উত্তর খুলবে।</p></div>
+            <span class="live-pill"><span class="live-dot"></span>Live</span>
+          </div>
+          <div class="toolbar">
+            <input id="searchInput" class="input search-input" type="search" placeholder="নাম, শহর বা কুইজ খুঁজুন…" aria-label="শিক্ষার্থী খুঁজুন">
+            <select id="statusFilter" class="input filter-select" aria-label="স্ট্যাটাস ফিল্টার">
+              <option value="all">সব সেশন</option><option value="online">অনলাইনে</option><option value="quiz">কুইজ করছে</option><option value="offline">অফলাইনে</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>শিক্ষার্থী</th><th>স্ট্যাটাস</th><th>কুইজ</th><th>উত্তর</th><th>সঠিক / ভুল</th></tr></thead>
+              <tbody id="studentRows"><tr><td colspan="5" class="empty">শিক্ষার্থীর ডেটা লোড হচ্ছে…</td></tr></tbody>
+            </table>
+          </div>
+          <p class="footer-note">লাইভ সেশন নির্ধারণে সর্বশেষ কার্যকলাপের সময় ব্যবহার হয়। নেটওয়ার্ক বিচ্ছিন্ন হলে কয়েক সেকেন্ড দেরিতে অফলাইন দেখাতে পারে।</p>
+        </section>
+
+        <aside class="panel" aria-labelledby="detailHeading">
+          <div class="panel-head"><div><h2 id="detailHeading">শিক্ষার্থীর বিস্তারিত</h2><p>প্রশ্নভিত্তিক কার্যকলাপের টাইমলাইন</p></div></div>
+          <div id="detailContent" class="detail-empty"><div class="empty-icon">⌕</div><strong>একজন শিক্ষার্থী নির্বাচন করুন</strong><p>কুইজ খোলা, দেখা প্রশ্ন, নির্বাচন করা উত্তর এবং সঠিক/ভুল ফলাফল এখানে দেখা যাবে।</p></div>
+        </aside>
+      </div>
+      <p class="footer-note">নোট: সঠিক/ভুল স্ট্যাটাস কুইজ পেজের ফলাফল থেকে নেওয়া হয়। যে প্রশ্নে পেজ ফলাফল শনাক্ত করতে পারে না, তার উত্তর “রেকর্ড হয়েছে” হিসেবে দেখা যাবে।</p>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+  <script src="./admin.js"></script>
+</body>
+</html>
