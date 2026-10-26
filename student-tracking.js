@@ -345,7 +345,7 @@
   function determineCorrectness(option, card) {
     const classes = String(option && option.className || "");
     if (/(^|[\s_-])(correct|is-correct|option-correct|right-answer|success)([\s_-]|$)/i.test(classes)) return true;
-    if (/(^|[\s_-])(incorrect|is-wrong|option-wrong|wrong-answer|danger)([\s_-]|$)/i.test(classes)) return false;
+    if (/(^|[\s_-])(wrong|incorrect|is-wrong|option-wrong|wrong-answer|danger)([\s_-]|$)/i.test(classes)) return false;
     const feedback = safeText(card && card.querySelector(".feedback,.answer-feedback,.explanation,.result-message,.answer-status")?.innerText || "", 500);
     if (/(আপনার উত্তর সঠিক|সঠিক উত্তর|উত্তরটি সঠিক|correct answer|correct!|^সঠিক\b)/i.test(feedback)) return true;
     if (/(উত্তর ভুল|ভুল উত্তর|উত্তরটি ভুল|incorrect|wrong answer|^ভুল\b)/i.test(feedback)) return false;
