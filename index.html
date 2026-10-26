@@ -1,126 +1,47 @@
 <!doctype html>
 <html lang="bn">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#173d35">
-  <meta name="description" content="SSC 2027 বাংলা ১ম পত্র প্রস্তুতির জন্য ৫০০টি অনুশীলন MCQ, অধ্যায়ভিত্তিক কুইজ, ব্যাখ্যাসহ উত্তর ও অগ্রগতি ট্র্যাকিং।">
-  <title>SSC 2027 বাংলা ১ম পত্র | MCQ প্রস্তুতি</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173d35">
+<title>SSC 2027 বাংলা ১ম পত্র | MCQ প্রস্তুতি</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;background:#f4f2e9;color:#173d35;display:grid;min-height:100vh;place-items:center;margin:0;padding:24px}.load{width:min(100%,520px);padding:36px 28px;text-align:center;background:#fffefa;border:1px solid #e4e6dc;border-radius:24px;box-shadow:0 20px 70px #183d3515}h1{font-size:clamp(1.4rem,4vw,1.9rem);margin:18px 0 10px}p{line-height:1.8;color:#52655e}.spinner{width:36px;height:36px;margin:0 auto;border:3px solid #d8e6dd;border-top-color:#24745f;border-radius:50%;animation:spin .85s linear infinite}.status{font-size:.92rem;overflow-wrap:anywhere}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.spinner{animation:none}}
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="প্রস্তুতি হোম">
-      <span class="brand-mark" aria-hidden="true">প</span>
-      <span class="brand-copy"><strong>প্রস্তুতি</strong><small>SSC 2027 · Exam Studio</small></span>
-    </a>
-    <nav class="top-actions" aria-label="প্রধান মেনু">
-      <span class="syllabus-chip"><span class="pulse"></span> SSC 2027</span>
-      <button id="sourceBtn" class="btn btn-ghost btn-small">সিলেবাসের উৎস</button>
-    </nav>
-  </header>
-
-  <main id="top" class="page-shell">
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="eyebrow-icon">✦</span> নিজের প্রস্তুতি যাচাই করো</div>
-        <h1>প্রস্তুতি হোক <span>পরিকল্পিত</span>।<br>আত্মবিশ্বাস আসুক অনুশীলনে।</h1>
-        <p>SSC ২০২৭ · বাংলা ১ম পত্রের জন্য অধ্যায়ভিত্তিক MCQ, তাৎক্ষণিক ব্যাখ্যা ও নিজের অগ্রগতি দেখার সহজ জায়গা।</p>
-        <div class="hero-actions"><button id="startHero" class="btn btn-primary">অনুশীলন শুরু <span aria-hidden="true">↗</span></button><span class="quiet-note">অনুশীলনের জন্য তৈরি · নিশ্চিত কমন নয়</span></div>
-      </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="orb orb-one"></div><div class="orb orb-two"></div>
-        <div class="score-card"><div class="book-illustration">অ<span>+</span></div><div class="score-card-label">বাংলা ১ম পত্র</div><div class="score-big">500 <small>MCQ</small></div><div class="score-bottom"><span class="mini-dot"></span> গদ্য · কবিতা · সহপাঠ</div></div>
-        <div class="floating-note note-top"><span>✓</span> উত্তর ব্যাখ্যা</div><div class="floating-note note-bottom"><span>◷</span> নিজের গতিতে</div>
-      </div>
-    </section>
-
-    <section class="stats-grid" aria-label="প্রশ্নব্যাংকের পরিসংখ্যান">
-      <article class="stat-card"><span class="stat-icon mint">▤</span><div><strong id="statTotal">500</strong><small>মোট প্রশ্ন</small></div></article>
-      <article class="stat-card"><span class="stat-icon peach">গ</span><div><strong>375</strong><small>গদ্য অনুশীলন</small></div></article>
-      <article class="stat-card"><span class="stat-icon blue">ক</span><div><strong>105</strong><small>কবিতা অনুশীলন</small></div></article>
-      <article class="stat-card"><span class="stat-icon gold">★</span><div><strong id="statSaved">0</strong><small>বুকমার্ক</small></div></article>
-    </section>
-
-    <section class="workspace" id="practiceArea">
-      <aside class="sidebar">
-        <div class="side-heading"><div><span class="overline">LEARNING SPACE</span><h2>বিষয় নির্বাচন</h2></div><span class="sidebar-emblem">✦</span></div>
-        <label class="field-label" for="subjectSelect">বিষয়</label>
-        <select id="subjectSelect" class="control">
-          <option value="bangla1">বাংলা ১ম পত্র</option>
-          <option disabled>বাংলা ২য় পত্র · শিগগিরই</option>
-          <option disabled>ইংরেজি ১ম পত্র · শিগগিরই</option>
-          <option disabled>ইংরেজি ২য় পত্র · শিগগিরই</option>
-          <option disabled>গণিত · শিগগিরই</option>
-          <option disabled>বাংলাদেশ ও বিশ্বপরিচয় · শিগগিরই</option>
-          <option disabled>ICT · শিগগিরই</option>
-        </select>
-        <div class="divider"></div>
-        <div class="side-heading compact"><div><span class="overline">FILTERS</span><h2>প্রশ্নের ধরন</h2></div></div>
-        <div class="filter-list" role="group" aria-label="প্রশ্নের বিভাগ">
-          <button class="filter-btn active" data-filter="all"><span class="filter-glyph">▦</span><span>সব প্রশ্ন</span><b>500</b></button>
-          <button class="filter-btn" data-filter="গদ্য"><span class="filter-glyph">গ</span><span>গদ্য</span><b>375</b></button>
-          <button class="filter-btn" data-filter="কবিতা"><span class="filter-glyph">ক</span><span>কবিতা</span><b>105</b></button>
-          <button class="filter-btn" data-filter="সহপাঠ"><span class="filter-glyph">স</span><span>সহপাঠ</span><b>20</b></button>
-        </div>
-        <div class="divider"></div>
-        <div class="side-heading compact"><div><span class="overline">YOUR PROGRESS</span><h2>তোমার সংগ্রহ</h2></div></div>
-        <button id="bookmarksBtn" class="collection-btn"><span>☆</span><span>বুকমার্ক করা প্রশ্ন</span><b id="bookmarkCount">0</b></button>
-        <button id="mistakesBtn" class="collection-btn"><span>↻</span><span>ভুল উত্তরগুলো</span><b id="mistakeCount">0</b></button>
-        <div class="sidebar-tip"><span>✧</span><p>একবারে সব মুখস্থ নয়—অল্প অল্প করে নিয়মিত অনুশীলনই ভালো প্রস্তুতি।</p></div>
-      </aside>
-
-      <section class="main-panel">
-        <div id="setupScreen">
-          <div class="section-heading"><div><span class="overline">START A SESSION</span><h2>আজ কীভাবে অনুশীলন করবে?</h2><p>অধ্যায় বেছে নাও, প্রশ্নসংখ্যা ঠিক করো—তারপর শুরু করো।</p></div><span class="heading-decoration">01 <i>/ 03</i></span></div>
-          <div class="setup-card">
-            <div class="setup-row">
-              <div class="field-block"><label class="field-label" for="chapterSelect">অধ্যায় / বিভাগ</label><select id="chapterSelect" class="control"><option value="all">সব অধ্যায় থেকে</option></select></div>
-              <div class="field-block"><label class="field-label" for="modeSelect">অনুশীলনের ধরন</label><select id="modeSelect" class="control"><option value="practice">শেখার মোড · সঙ্গে সঙ্গে ব্যাখ্যা</option><option value="exam">পরীক্ষার মোড · শেষে ফলাফল</option></select></div>
-            </div>
-            <div class="field-label block-label">কতটি প্রশ্ন করবে?</div>
-            <div class="count-grid" id="countChoices">
-              <button class="count-choice" data-count="10"><strong>10</strong><small>দ্রুত রিভিশন</small></button>
-              <button class="count-choice active" data-count="25"><strong>25</strong><small>মিনি টেস্ট</small></button>
-              <button class="count-choice" data-count="50"><strong>50</strong><small>ভালো অনুশীলন</small></button>
-              <button class="count-choice" data-count="100"><strong>100</strong><small>দীর্ঘ সেশন</small></button>
-              <button class="count-choice count-all" data-count="500"><strong>সব</strong><small>500টি প্রশ্ন</small></button>
-            </div>
-            <label class="switch-row"><input id="shuffleToggle" type="checkbox" checked><span class="switch"></span><span><strong>প্রশ্ন এলোমেলো করো</strong><small>প্রতিবার নতুন ক্রমে অনুশীলন</small></span></label>
-            <div class="setup-footer"><p><span class="check-mark">✓</span> উত্তর, ব্যাখ্যা ও অগ্রগতি এই ডিভাইসে সংরক্ষিত থাকবে</p><button id="startBtn" class="btn btn-primary btn-wide">কুইজ শুরু করো <span aria-hidden="true">→</span></button></div>
-          </div>
-          <div class="search-row"><div class="searchbox"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="অধ্যায় বা প্রশ্ন খুঁজুন…" autocomplete="off"><kbd>⌕</kbd></div><span class="search-help">যেমন: সুভা, কপোতাক্ষ নদ, লেখক</span></div>
-          <div id="searchResults" class="search-results hidden"></div>
-          <div class="mini-information"><span class="info-icon">i</span><p><strong>মনে রেখো:</strong> এটি SSC–২০২৭ সিলেবাসভিত্তিক অনুশীলন প্রশ্নব্যাংক। বোর্ড পরীক্ষায় কোন প্রশ্ন আসবে তার নিশ্চয়তা নয়; পাঠ্যবই পড়ে প্রস্তুতি নাও।</p></div>
-        </div>
-
-        <div id="quizScreen" class="hidden">
-          <div class="quiz-topline"><button id="quitBtn" class="text-btn">← সেটিংসে ফিরুন</button><span id="modeBadge" class="mode-badge">শেখার মোড</span><span id="timer" class="timer hidden">◷ 00:00</span></div>
-          <div class="quiz-progress-head"><div><span class="overline" id="quizTopic">সব অধ্যায়</span><h2>প্রশ্ন অনুশীলন</h2></div><div class="question-count"><strong id="currentNumber">01</strong><span>/</span><span id="totalNumber">25</span></div></div>
-          <div class="progress-track"><span id="progressFill"></span></div>
-          <article class="question-card">
-            <div class="question-meta"><span id="categoryTag" class="category-tag">গদ্য</span><span id="questionId" class="question-id">B1-001</span><button id="bookmarkCurrent" class="bookmark-current" aria-label="প্রশ্ন বুকমার্ক" title="বুকমার্ক">☆</button></div>
-            <h3 id="questionText">প্রশ্ন লোড হচ্ছে…</h3>
-            <div id="optionsList" class="options-list"></div>
-            <div id="feedback" class="feedback hidden" aria-live="polite"></div>
-            <div class="question-footer"><span id="answeredLabel" class="answered-label">একটি উত্তর বেছে নাও</span><div class="question-nav"><button id="prevBtn" class="btn btn-secondary">পেছনে</button><button id="nextBtn" class="btn btn-primary">পরের প্রশ্ন <span aria-hidden="true">→</span></button><button id="finishBtn" class="btn btn-primary hidden">পরীক্ষা শেষ করুন</button></div></div>
-          </article>
-          <div class="quiz-footnote"><span>✦</span> ভুল হলে চিন্তা নেই—ব্যাখ্যাটি পড়ো এবং আবার চেষ্টা করো।</div>
-        </div>
-
-        <div id="resultScreen" class="hidden">
-          <div class="result-head"><span class="result-spark">✦</span><span class="overline">SESSION COMPLETE</span><h2 id="resultTitle">অনুশীলন সম্পন্ন!</h2><p id="resultSubtitle">আজকের অগ্রগতি এখানে দেখো।</p></div>
-          <div class="result-score"><div class="score-ring" id="scoreRing"><div><strong id="scorePercent">0%</strong><small>সঠিক</small></div></div><div class="result-metrics"><div><span class="metric-dot good"></span><span>সঠিক উত্তর</span><strong id="resultCorrect">0</strong></div><div><span class="metric-dot bad"></span><span>ভুল উত্তর</span><strong id="resultWrong">0</strong></div><div><span class="metric-dot neutral"></span><span>উত্তর দিয়েছ</span><strong id="resultAnswered">0</strong></div></div></div>
-          <div id="resultMessage" class="result-message"></div>
-          <div class="result-actions"><button id="reviewWrongBtn" class="btn btn-secondary">ভুলগুলো আবার করো</button><button id="restartBtn" class="btn btn-primary">নতুন অনুশীলন শুরু ↗</button></div>
-          <div id="wrongReviewList" class="wrong-review-list hidden"></div>
-        </div>
-      </section>
-    </section>
-    <footer class="footer"><div class="footer-brand"><span class="brand-mark small">প</span><div><strong>প্রস্তুতি</strong><small>SSC 2027 Practice Studio</small></div></div><p>পড়ো · অনুশীলন করো · নিজের অগ্রগতি দেখো</p><span>v1.0 · বাংলা ১ম পত্র</span></footer>
-  </main>
-
-  <dialog id="sourceDialog" class="source-dialog"><div class="dialog-head"><div><span class="overline">REFERENCE</span><h2>সিলেবাস ও উৎস</h2></div><button id="closeSource" class="close-button" aria-label="বন্ধ করো">×</button></div><p>প্রশ্নগুলোর অধ্যায়-লেখক, বিষয়বস্তু ও শিক্ষণফল SSC–২০২৭ পরীক্ষার জন্য প্রকাশিত বাংলা ১ম পত্রের পাঠ্যসূচির সঙ্গে মিলিয়ে সাজানো হয়েছে। অনুশীলন প্রশ্নগুলো এই ওয়েবসাইটের নিজস্ব তৈরি; বোর্ডের আসল প্রশ্ন নয়।</p><a href="https://teachers.gov.bd/shared/admin_notice_file/2025/March/09/2503090149532808gCCC8u9rHj6RX2KSVzJIQiLJzerIOkH1Whl6MKxE.pdf" target="_blank" rel="noopener noreferrer">SSC–২০২৭ পাঠ্যসূচি PDF ↗</a><a href="https://nctb.gov.bd/" target="_blank" rel="noopener noreferrer">NCTB-এর সরকারি ওয়েবসাইট ↗</a><p class="source-note">পরীক্ষার আগে নিজের বিদ্যালয়/বোর্ড থেকে প্রকাশিত সর্বশেষ নির্দেশনা যাচাই করবে।</p></dialog>
-  <script src="app.js"></script>
+<main class="load">
+<div class="spinner" aria-hidden="true"></div>
+<h1>প্রস্তুতি লোড হচ্ছে…</h1>
+<p id="status" class="status" aria-live="polite">SSC 2027 · বাংলা ১ম পত্রের অনুশীলন প্রস্তুত করা হচ্ছে।</p>
+</main>
+<script>
+(async()=>{
+ const files=[
+ "offline-preview.part1.b64","offline-preview.part2.b64","offline-preview.part3.b64","offline-preview.part4.b64","offline-preview.part5.b64",
+ "site-payload-06a.b64","site-payload-06b.b64","site-payload-07a.b64","site-payload-08.b64"
+ ];
+ const status=document.getElementById("status");
+ try{
+  const parts=await Promise.all(files.map(async file=>{
+   const response=await fetch(file,{cache:"no-store"});
+   if(!response.ok)throw new Error("ডেটা ফাইল পাওয়া যায়নি: "+file);
+   return (await response.text()).trim();
+  }));
+  const b64=parts.join("");
+  if(b64.length!==54716)throw new Error("অসম্পূর্ণ ডেটা: "+b64.length+" অক্ষর");
+  const binary=atob(b64);
+  const bytes=Uint8Array.from(binary,char=>char.charCodeAt(0));
+  if(!("DecompressionStream" in window))throw new Error("এই ব্রাউজারে gzip খোলার সুবিধা নেই। Chrome-এর আপডেটেড সংস্করণ ব্যবহার করুন।");
+  const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+  const html=await new Response(stream).text();
+  if(!html.includes("প্রস্তুতি")||!html.includes("500"))throw new Error("ওয়েবসাইটের কনটেন্ট যাচাই করা যায়নি।");
+  document.open();document.write(html);document.close();
+ }catch(error){
+  status.textContent="সাইটটি লোড করা যায়নি। "+(error&&error.message?error.message:String(error))+" — GitHub Pages চালু আছে কি না এবং সব ডেটা ফাইল আপলোড হয়েছে কি না যাচাই করুন।";
+  const spinner=document.querySelector(".spinner");if(spinner)spinner.style.display="none";
+ }
+})();
+</script>
 </body>
 </html>
