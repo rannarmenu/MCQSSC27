@@ -376,6 +376,8 @@
     const correct = determineCorrectness(selectedNow || option, document.querySelector("#feedback") || card);
     const key = title + "|" + (n == null ? "unknown-" + qText.slice(0, 70) : String(n)) + "|" + qText.slice(0, 70);
     if (!session.answers) session.answers = {};
+    const previous = session.answers[key];
+    if (previous && previous.answer === answer && previous.correct === correct) return;
     session.answers[key] = { quiz: title, number: n, question: qText, answer, correct, at: new Date().toISOString() };
     saveSession();
     trackEvent("answer_submitted", {
@@ -423,6 +425,12 @@
         questionText: info.text, status: "active", totalQuestions: info.total
       });
     }
+    // Also detect answers selected via keyboard shortcuts, not only pointer clicks.
+    const liveOptions = Array.from(document.querySelectorAll("#options button.option,.options button.option,button.option")).filter(isVisible);
+    const wrongChoice = liveOptions.find(option => option.classList.contains("wrong"));
+    const correctChoice = liveOptions.find(option => option.classList.contains("correct"));
+    const selectedChoice = wrongChoice || (!wrongChoice ? correctChoice : null);
+    if (selectedChoice) recordAnswer(selectedChoice);
   }
   function scheduleScan(delay) {
     if (scanTimer) clearTimeout(scanTimer);
